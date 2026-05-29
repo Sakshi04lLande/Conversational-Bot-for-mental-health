@@ -1,0 +1,35 @@
+services:
+
+  chatbot_api:
+
+    # FastAPI Application
+    build: .
+
+    container_name: conversational_ai_api
+
+    ports:
+      - "8015:8015"
+
+    env_file:
+      - .env
+
+    depends_on:
+      - postgres
+
+  postgres:
+
+    # PostgreSQL Database
+    image: postgres:16
+
+    container_name: conversational_postgres
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: conversational_ai
+
+    ports:
+      - "5435:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
