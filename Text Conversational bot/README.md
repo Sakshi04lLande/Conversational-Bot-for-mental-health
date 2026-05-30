@@ -1,98 +1,57 @@
-# Multilingual Emotional Conversational AI API
+# Mental Health Conversational AI
 
-## Overview
+A multilingual emotional support chatbot built using FastAPI and Azure OpenAI.
 
-Multilingual Emotional Conversational AI is a FastAPI-based chatbot API that provides natural, context-aware conversations in multiple languages.
+## Features
 
-The chatbot supports:
+* Multilingual Support
 
-* English
-* Marathi
-* Hindi
+  * English
+  * Marathi
+  * Hindi
+  * Roman Marathi → Marathi
+  * Roman Hindi → Hindi
 
-The system maintains conversation history, generates context-aware responses, performs emotional risk detection, and provides safer responses when users appear emotionally overwhelmed.
+* Human-like Conversations
 
-The project uses Azure OpenAI for response generation and PostgreSQL for conversation memory storage.
+  * Natural responses
+  * Emotionally intelligent interaction
+  * Context-aware conversation flow
 
----
+* Safety System
 
-# Features
+  * Self-harm risk detection
+  * Safe response generation
+  * Mental health helpline information
 
-## Conversational AI
+* Azure OpenAI Integration
 
-* Context-aware conversations
-* Human-like conversational style
-* Multilingual support
-* Conversation memory
-* Natural emotional conversations
+  * GPT-based conversational responses
+  * Context-aware prompting
 
----
+* API Security
 
-## Safety System
-
-* Emotional risk detection
-* Self-harm risk classification
-* Safe response generation
-* Support resource sharing
-
----
-
-## Authentication
-
-* API Key Authentication
-* Swagger UI authorization support
-* Protected endpoints
+  * API key authentication
+  * Secure request validation
 
 ---
 
-## Technology Stack
+## Project Structure
 
-### Backend
-
-* FastAPI
-* Python 3.11
-
-### AI
-
-* Azure OpenAI
-* LangChain
-
-### Database
-* PostgreSQL
-
-### ORM
-* SQLAlchemy
-
-### Containerization
-
-* Docker
-* Docker Compose
-
----
-
-# Project Structure
-
-```text
-project/
-
+```bash
 ├── app/
 │   ├── auth.py
 │   ├── config.py
-│   ├── database.py
 │   ├── llm.py
 │   ├── main.py
-│   ├── memory.py
-│   ├── memory_summary.py
 │   ├── model.py
-│   ├── models.py
 │   ├── prompts.py
 │   ├── safe_response.py
 │   ├── safety.py
 │   ├── schemas.py
 │   └── routes/
 │       └── chat.py
-│
-├── .env
+│── .env
 ├── Dockerfile
 ├── docker-compose.yml
 ├── requirements.txt
@@ -101,45 +60,27 @@ project/
 
 ---
 
-# Environment Variables
+## Installation
 
-Create a `.env` file.
+### Clone Repository
 
-```env
-AZURE_OPENAI_API_KEY=your_api_key
-
-AZURE_OPENAI_ENDPOINT=your_endpoint
-
-AZURE_OPENAI_DEPLOYMENT=your_deployment
-
-AZURE_OPENAI_API_VERSION=your_version
-
-DATABASE_URL=postgresql://postgres:postgres@postgres:5432/conversational_ai
-
-CONVERSATIONAL_BOT_API_KEY=your_secure_api_key
+```bash
+git clone <repository-url>
+cd mental-health-chatbot
 ```
 
----
-
-# Local Development Setup
-
-## Create Virtual Environment
-
-Windows
+### Create Virtual Environment
 
 ```bash
 python -m venv venv
-```
 
-Activate:
+source venv/bin/activate
 
-```bash
+# Windows
 venv\Scripts\activate
 ```
 
----
-
-## Install Dependencies
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -147,199 +88,64 @@ pip install -r requirements.txt
 
 ---
 
-## Run FastAPI
+## Environment Variables
+
+Create a `.env` file.
+
+```env
+AZURE_OPENAI_API_KEY=your_azure_openai_key
+
+AZURE_OPENAI_ENDPOINT=https://your-resource.openai.azure.com/
+
+AZURE_OPENAI_DEPLOYMENT=gpt-4o
+
+AZURE_OPENAI_API_VERSION=2024-02-15-preview
+
+CONVERSATIONAL_BOT_API_KEY=your_secure_api_key
+```
+
+---
+
+## Run Application
 
 ```bash
-uvicorn app.main:app --reload --port 8015
+uvicorn app.main:app --host 0.0.0.0 --port 8015 --reload
 ```
 
 ---
 
-# Docker Setup
+## API Documentation
 
-## Build Containers
-
-```bash
-docker compose build
-```
-
----
-
-## Start Containers
-
-```bash
-docker compose up -d
-```
-
----
-
-## View Logs
-
-API Logs
-
-```bash
-docker logs -f conversational_ai_api
-```
-
-PostgreSQL Logs
-
-```bash
-docker logs -f conversational_postgres
-```
-
----
-
-## Stop Containers
-
-```bash
-docker compose down
-```
-
----
-
-## Rebuild After Changes
-
-```bash
-docker compose up --build
-```
-
----
-
-# PostgreSQL
-
-## PostgreSQL Container
-
-Container Name:
-
-```text
-conversational_postgres
-```
-
-Database:
-
-```text
-conversational_ai
-```
-
-User:
-
-```text
-postgres
-```
-
-Password:
-
-```text
-postgres
-```
-
-Host:
-
-```text
-localhost
-```
-
-Port:
-
-```text
-5435
-```
-
----
-
-## Connect To PostgreSQL
-
-```bash
-docker exec -it conversational_postgres psql -U postgres -d conversational_ai
-```
-
----
-
-## View All Conversations
-
-```sql
-SELECT *
-FROM conversations;
-```
-
----
-
-## View User Conversation
-
-```sql
-SELECT role,
-       message,
-       created_at
-FROM conversations
-WHERE user_id='user123'
-ORDER BY created_at ASC;
-```
-
----
-
-## View All User IDs
-
-```sql
-SELECT DISTINCT user_id
-FROM conversations;
-```
-
----
-
-## Delete All Conversations
-
-```sql
-TRUNCATE TABLE conversations RESTART IDENTITY;
-```
-
----
-
-# Swagger UI
-
-Open:
+Swagger UI
 
 ```text
 http://localhost:8015/docs
 ```
 
----
-
-## Authorize API
-
-Click:
+Redoc
 
 ```text
-Authorize
-```
-
-Enter:
-
-```text
-X-API-Key
-```
-
-Value:
-
-```text
-your_secure_api_key
-```
-
-Click:
-
-```text
-Authorize
+http://localhost:8015/redoc
 ```
 
 ---
 
-# API Endpoint
+## Authentication
 
-## Chat
-
-### Endpoint
+All chat endpoints require:
 
 ```http
-POST /chat
+X-API-Key: your_secure_api_key
+```
+
+---
+
+## Chat Endpoint
+
+### POST
+
+```http
+/api/chat
 ```
 
 ### Request
@@ -347,7 +153,17 @@ POST /chat
 ```json
 {
   "user_id": "user123",
-  "message": "Hi, I want to talk."
+  "message": "मला खूप एकटं वाटतं",
+  "conversation_history": [
+    {
+      "role": "user",
+      "message": "हाय"
+    },
+    {
+      "role": "assistant",
+      "message": "हाय, कसा आहेस?"
+    }
+  ]
 }
 ```
 
@@ -355,100 +171,33 @@ POST /chat
 
 ```json
 {
-  "response": "Hi, what's on your mind?"
+  "response": "अरे, काय झालं? बोलायचं असेल तर सांग."
 }
 ```
 
 ---
 
-# How To Use API Using Python
+## Safety Layer
 
-```python
-import requests
+The chatbot automatically:
 
-url = "http://localhost:8015/chat"
-
-payload = {
-    "user_id": "user123",
-    "message": "Hi, I want to talk."
-}
-
-headers = {
-    "X-API-Key": "your_secure_api_key"
-}
-
-response = requests.post(
-    url,
-    json=payload,
-    headers=headers
-)
-
-print(response.json())
-```
+* Detects self-harm intent
+* Detects suicidal ideation
+* Generates safe responses
+* Shares verified helpline details
 
 ---
 
-# API Health Check
+## Technology Stack
 
-### Endpoint
-
-```http
-GET /
-```
-
-### Response
-
-```json
-{
-  "message": "Multilingual Emotional AI Chatbot Running"
-}
-```
-
+* FastAPI
+* Azure OpenAI
+* LangChain
+* Python
+* Docker
+* Uvicorn
 ---
 
-# Safety Workflow
+## Author
 
-1. User sends message.
-2. Risk classifier evaluates message.
-3. If SAFE:
-
-   * Normal conversational response generated.
-4. If HIGH_RISK:
-
-   * Safe response generated.
-   * Support resources provided.
-5. Response stored in database.
-
----
-
-# Database Tables
-
-## conversations
-
-Stores complete conversation history.
-
-| Column     | Type     |
-| ---------- | -------- |
-| id         | Integer  |
-| user_id    | String   |
-| role       | String   |
-| message    | Text     |
-| created_at | DateTime |
-
----
-
-## user_memory
-
-Stores user memory summaries.
-
-| Column  | Type    |
-| ------- | ------- |
-| id      | Integer |
-| user_id | String  |
-| summary | Text    |
-
----
-
-
-# Author
 Sakshi Lande

@@ -1,42 +1,31 @@
 
 services:
 
-  chatbot_api:
+chatbot-api:
 
-    build: .
+```
+build: .
 
-    container_name: conversational_ai_api
+container_name: mental-health-chatbot
 
-    ports:
-      - "8015:8015"
+restart: unless-stopped
 
-    env_file:
-      - .env
+ports:
+  - "8015:8015"
 
-    depends_on:
-      - postgres
-
-    restart: unless-stopped
-
-  postgres:
-
-    image: postgres:16
-
-    container_name: conversational_postgres
-
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: conversational_ai
-
-    ports:
-      - "5435:5432"
-
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-    restart: unless-stopped
+env_file:
+  - .env
 
 volumes:
-  postgres_data:
+  - .:/app
 
+command: >
+  uvicorn app.main:app
+  --host 0.0.0.0
+  --port 8015
+```
+
+networks:
+
+default:
+name: chatbot-network

@@ -64,8 +64,6 @@ Previous conversation:
 Current user message:
 {user_message}
 
-memory_summary = ""
-
 Respond naturally.
 
 IMPORTANT:
