@@ -204,20 +204,5 @@ The chatbot automatically:
 * Uvicorn
 
 ---
-
-## Production Deployment
-
-```bash
-docker-compose up -d --build
-```
-
----
-
 ## Author
-
-Visual Mart / Agozone Technology Pvt Ltd
-Sakshi Lande
-
-
-# Author
 Sakshi Lande
